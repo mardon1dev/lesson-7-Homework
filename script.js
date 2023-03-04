@@ -8,7 +8,7 @@ async function findCountry() {
 
     let url;
     if (searchInput) {
-        url = `${baseUrl}name/${searchInput}?fullText=true`;
+        url = `${baseUrl}name/${searchInput}?fullText=false`;
     } else{
         url = `${baseUrl}all`
     }
@@ -28,13 +28,17 @@ async function findCountry() {
             row.appendChild(notFound);
         } else{
             data.map((davlat)=>{
+                console.log(data);
                 const { flags, name, population, currencies } = davlat;
                 let populationFixed;
                 if (population > 1000000) {
                     populationFixed = `${Math.floor(population/1000000).toFixed()} mln`
                 } else if(population > 1000){
                     populationFixed = `${Math.floor(population/1000).toFixed()} ming`;
-                } else{
+                } else if(population == 0){
+                    populationFixed = `${population}`
+                } 
+                else{
                     populationFixed = `Axoli juda kam`
                 }
                 const currenciesInArray = Object.keys(currencies)[0];
